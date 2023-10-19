@@ -1,0 +1,51 @@
+\name{pcor.equiv}
+\alias{pcor.equiv}
+
+\title{
+Equivalence test using partial correlation
+}
+
+Equivalence test using partial correlation.
+}
+
+\usage{
+pcor.equiv(res, y, x, alpha = 0.05)
+}
+
+\arguments{
+\item{res}{
+A vector with the residuals of the linear model.
+}
+\item{y}{
+A vector with a selected predictor.
+}
+\item{x}{
+A matrix with the predictors.
+}
+\item{alpha}{
+The significance level to check for predictors from x that are equivalent to y.
+}
+}
+
+\value{
+A vector with 0s and 1s. 0s indicate that the predictors are not equivalent, while 1s indicate the equivalent predictors.
+}
+
+\author{
+Michail Tsagris.
+
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+}
+
+\seealso{
+\code{ \link{binomCI}
+}
+}
+
+\examples{
+x <- sample(40, 10)
+n <- rep(40, 10)
+binomCIs(x, n)
+}
+
+

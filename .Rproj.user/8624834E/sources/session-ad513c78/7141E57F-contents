@@ -1,0 +1,67 @@
+epilogi <- function(y, x, tol = 0.01, alpha = 0.05 ) {
+  dm <- dim(x)
+  n <- dm[1]  ;  d <- dim(x)[2]
+  ind <- 1:d
+  ida <- 1:d
+  indexa <- 1:d
+  m <- sum(y) / n
+  y <- (y - m) / Rfast::Var(y, std = TRUE)
+  down <- n - 1
+  x <- Rfast::standardise(x)
+  can <- which( is.na( Rfast::colsums(x) ) )
+  ind[can] <- 0
+
+  equivalents <- list()
+
+  tic <- proc.time()
+  rho <- 0
+  ela <- Rfast::eachcol.apply(x, y)
+  sel <- which.max( abs(ela) )
+  sela <- sel
+  names(sela) <- NULL
+  indexa <- ida[-sela]
+  a <- epilogi::pcor.equiv(y, x[, sel], x[, -sela], alpha = alpha)
+  equivalents[[ 1 ]] <- indexa[a]
+  res <- .lm.fit(x[, sela, drop = FALSE], y)$residuals
+  r2 <- 1 - sum(res^2) / down
+  rho[2] <- 1 - (1 - r2) * (n - 1) / (n - 2)
+  ind <- ind[ -c(sel, equivalents[[ 1 ]]) ]
+  i <- 2
+  r <- rep(NA, d)
+  while ( rho[i] - rho[i - 1] > tol ) {
+    i <- i + 1
+    r[ind] <- Rfast::eachcol.apply(x, res, indices = ind, oper = "*", apply = "sum")
+    sel <- which.max( abs(r) )
+    sela <- c(sela, sel)
+    indexa <- ida[-sela]
+    a <- epilogi::pcor.equiv(res, x[, sel], x[, -sela], alpha = alpha)
+    equivalents[[ i - 1 ]] <- indexa[a]
+    res <- .lm.fit(x[, sela, drop = FALSE], y)$residuals
+    r2 <- 1 - sum(res^2) / down
+    rho[i] <- 1 - (1 - r2) * (n - 1)/(n - i)
+    ind <- ind[-c(sel, equivalents[[ i - 1 ]]) ]
+    r[sela] <- NA
+  } ## end while ( rho[i] - rho[i - 1] > tol )
+
+  runtime <- proc.time() - tic
+  len <- length(sela)
+  result <- cbind(c(0, sela[-len]), rho[1:len])
+  colnames(result) <- c("Selected Vars", "adjusted R-squared")
+  equivalents[[ len ]] <- NULL
+  names(equivalents) <- result[-1, 1]
+
+  list(runtime = runtime, res = result, equiv = equivalents)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

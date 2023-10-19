@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1604699875602.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1839694621",
+    "id" : "8DED89E7",
+    "lastKnownWriteTime" : 1604699906,
+    "last_content_update" : 1604699906,
+    "path" : "C:/Users/user/Desktop/Folder/paketo/Cronbach/man/Cronbach-package.Rd",
+    "project_path" : "man/Cronbach-package.Rd",
+    "properties" : {
+        "cursorPosition" : "22,128",
+        "scrollLine" : "14"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_doc"
+}

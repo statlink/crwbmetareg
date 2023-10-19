@@ -1,0 +1,17 @@
+{
+    "path" : "C:/Users/user/Desktop/Folder/paketo/Cronbach",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        },
+        {
+            "ascending" : false,
+            "columnIndex" : 3
+        },
+        {
+            "ascending" : false,
+            "columnIndex" : 4
+        }
+    ]
+}

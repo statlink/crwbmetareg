@@ -1,0 +1,23 @@
+##############
+##############
+##############
+pcor.equiv <- function(res, y, x, alpha = 0.05 ) {
+  n <- length(res)
+  dof <- n - 4
+  res <- res / Rfast::Var(res, std = TRUE)
+
+  e1 <- res - t( as.vector( cov(res, x) ) * t(x) )  ## resid( R ~ X )
+  b2 <- as.vector( cov(y, x) )
+  e2 <- y - t( b2 * t(x) ) ##  resid( Y ~ X)
+  r1 <- corpairs(e1, e2)   ## pcor(R, Y | X)
+  z1 <- 0.5 * sqrt(dof) * log( (1 + r1) / (1 - r1) )
+  p1 <- 2 * pt( abs(z1), dof, lower.tail = FALSE )
+
+  e1 <- res - cov(res, y) * y  ## resid( R ~ Y)
+  e2 <- x - Rfast::Outer(b2, y)  ## resid(X ~ Y)
+  r2 <- cor(e1, e2)   ## pcor(R, X | Y)
+  z2 <- 0.5 * sqrt(dof) * log( (1 + r2) / (1 - r2) )
+  p2 <- 2 * pt( abs(z2), dof, lower.tail = FALSE )
+
+  which( (p1 > alpha  &  p2 > alpha) | ( is.na(p1)  &  is.na(p2) )  )
+}

@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1691492078934.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1202466451",
+    "id" : "1CDB93F5",
+    "lastKnownWriteTime" : 1691493008,
+    "last_content_update" : 1691493008205,
+    "path" : "C:/Users/tsagris/mattas group Dropbox/Michail Tsagris/My PC (DESKTOP-DKGKA5V)/Desktop/binomCI/R/binomCI.R",
+    "project_path" : "R/binomCI.R",
+    "properties" : {
+        "cursorPosition" : "82,4",
+        "scrollLine" : "57"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

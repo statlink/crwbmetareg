@@ -1,0 +1,45 @@
+\name{Cronbach-package}
+\alias{Cronbach-package}
+\docType{package}
+\title{
+Cronbach's alpha
+}
+
+\description{
+Cronbach's alpha and various formulas for confidence intervals.
+}
+
+\details{
+\tabular{ll}{
+Package: \tab fsn\cr
+Type: \tab Package\cr
+Version: \tab 0.1 \cr
+Date: \tab 2020-11-6\cr
+License: \tab GPL-2\cr
+}
+}
+
+\author{
+Michail Tsagris \email{mtsagris@uoc.gr}, Constantinos Frangos \email{kfragkos@outlook.com} and Christos Frangos \email{cfragos@teiath.gr}.
+}
+
+\section{Maintainers }{
+Michail Tsagris <mtsagris@uoc.gr>
+}
+
+\references{
+Cronbach L. (1951), Coefficient alpha and the internal structure of tests. Psychometrika, 16(3): 297-334.
+
+Tsagris M., Frangos C.C. and Frangos C.C. Confidence intervals for Cronbach's reliability coefficient.
+Recent Techniques in Educational Science, 14-16 2013 May, Athens, Greece.
+http://www.academia.edu/download/32613010/Cronbachs_alpha.pdf
+}
+
+%\note{
+%Acknowledgments:
+%
+%}
+
+
+
+

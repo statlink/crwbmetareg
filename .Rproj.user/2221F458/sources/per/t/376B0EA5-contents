@@ -1,0 +1,16 @@
+Package: Cronbach
+Type: Package
+Title: Cronbach's alpha
+Version: 0.1
+URL:
+Date: 2020-11-6
+Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
+             person("Constantinos", "Frangos", role = "aut", email = "kfragkos@outlook.com"),
+			 person("Christos", "Frangos", role = "ctb", email = "cfragos@teiath.gr")) 
+Author: Michail Tsagris [aut, cre], Constantinos Frangos [aut], Christos Frangos [ctb]
+Maintainer: Michail Tsagris <mtsagris@uoc.gr>
+Depends: R (>= 3.6.0)
+Imports: boot, stats
+Description: Cronbach's alpha and various formulas for confidence intervals. 
+License: GPL (>= 2)
+

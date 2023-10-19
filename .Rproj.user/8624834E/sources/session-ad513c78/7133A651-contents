@@ -1,0 +1,14 @@
+check.equiv <- function( y, x, sela, cand, eq, alpha) {
+  le <- length(eq)
+  res <- numeric(le)
+  d01 <- lm(y~., data = as.data.frame( x[, c(sela, cand)] ) )
+  for (i in 1:le) {
+    dfull <- lm(y~., data = as.data.frame( x[, c(sela, cand, eq[i])] ) )
+    d02 <- lm(y~., data = as.data.frame( x[, c(sela, eq[i])] ) )
+    p1 <- anova(d01, dfull)[2, 6]
+    p2 <- anova(d02, dfull)[2, 6]
+    res[i] <- ( p1 > alpha & p2 > alpha )
+  }
+  res[ is.na(res) ] <- 1
+  res
+}

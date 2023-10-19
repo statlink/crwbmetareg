@@ -1,0 +1,50 @@
+\name{pcor.equiv}
+\alias{pcor.equiv}
+
+\title{
+Confidence Intervals for many Binomial Proportions.
+}
+
+\description{
+Confidence Intervals for many Binomial Proportions.
+}
+
+\usage{
+pcor.equiv(res, y, x, alpha = 0.05)
+}
+
+\arguments{
+\item{x}{
+A vector with the number of successes.
+}
+\item{n}{
+A vector with the number of trials.
+}
+\item{a}{
+The significance level to compute the \eqn{(1-\alpha)\%} confidence intervals.
+}
+}
+
+\value{
+A list with the the first element being the vector with the proportions and the rest 12 items
+contain the \eqn{(1-\alpha)\%} confidence intervals.
+}
+
+\author{
+Michail Tsagris.
+
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+}
+
+\seealso{
+\code{ \link{binomCI}
+}
+}
+
+\examples{
+x <- sample(40, 10)
+n <- rep(40, 10)
+binomCIs(x, n)
+}
+
+

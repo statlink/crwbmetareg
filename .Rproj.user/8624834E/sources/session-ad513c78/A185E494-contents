@@ -1,0 +1,109 @@
+epilogi <- function(y, x, tol = 0.01, alpha = 0.05 ) {
+  dm <- dim(x)
+  n <- dm[1]  ;  d <- dim(x)[2]
+  ind <- 1:d
+  ida <- 1:d
+  indexa <- 1:d
+  m <- sum(y) / n
+  y <- (y - m) / Rfast::Var(y, std = TRUE)
+  down <- n - 1
+  x <- Rfast::standardise(x)
+  can <- which( is.na( Rfast::colsums(x) ) )
+  ind[can] <- 0
+    
+  equivalents <- list()
+	
+  tic <- proc.time()
+  rho <- 0
+  ela <- Rfast::eachcol.apply(x, y)
+  sel <- which.max( abs(ela) )  
+  sela <- sel
+  names(sela) <- NULL 
+  indexa <- ida[-sela] 
+  a <- pcor.equiv(y, x[, sel], x[, -sela], alpha = alpha)
+  equivalents[[ 1 ]] <- indexa[a]    
+  res <- .lm.fit(x[, sela, drop = FALSE], y)$residuals 
+  r2 <- 1 - sum(res^2) / down
+  rho[2] <- 1 - (1 - r2) * (n - 1) / (n - 2)
+  ind <- ind[ -c(sel, equivalents[[ 1 ]]) ]
+  i <- 2
+  r <- rep(NA, d)
+  while ( rho[i] - rho[i - 1] > tol ) {
+    i <- i + 1
+    r[ind] <- Rfast::eachcol.apply(x, res, indices = ind, oper = "*", apply = "sum")  
+    sel <- which.max( abs(r) )
+    sela <- c(sela, sel)
+    indexa <- ida[-sela] 
+    a <- pcor.equiv(res, x[, sel], x[, -sela], alpha = alpha)
+    equivalents[[ i - 1 ]] <- indexa[a]    
+    res <- .lm.fit(x[, sela, drop = FALSE], y)$residuals 
+    r2 <- 1 - sum(res^2) / down
+    rho[i] <- 1 - (1 - r2) * (n - 1)/(n - i)
+    ind <- ind[-c(sel, equivalents[[ i - 1 ]]) ]
+    r[sela] <- NA
+  } ## end while ( rho[i] - rho[i - 1] > tol )
+
+  runtime <- proc.time() - tic
+  len <- length(sela)
+  result <- cbind(c(0, sela[-len]), rho[1:len])
+  colnames(result) <- c("Selected Vars", "adjusted R-squared") 
+  equivalents[[ len ]] <- NULL
+  names(equivalents) <- result[-1, 1]        
+
+  list(runtime = runtime, res = result, equiv = equivalents)
+}  
+
+
+
+##############
+##############
+##############
+pcor.equiv <- function(res, y, x, alpha = 0.05 ) {
+  n <- length(res)
+  dof <- n - 4
+  res <- res / Rfast::Var(res, std = TRUE)
+
+  e1 <- res - t( as.vector( cov(res, x) ) * t(x) )  ## resid( R ~ X ) 
+  b2 <- as.vector( cov(y, x) )  
+  e2 <- y - t( b2 * t(x) ) ##  resid( Y ~ X) 
+  r1 <- corpairs(e1, e2)   ## pcor(R, Y | X)
+  z1 <- 0.5 * sqrt(dof) * log( (1 + r1) / (1 - r1) ) 
+  p1 <- 2 * pt( abs(z1), dof, lower.tail = FALSE )
+  
+  e1 <- res - cov(res, y) * y  ## resid( R ~ Y)
+  e2 <- x - Rfast::Outer(b2, y)  ## resid(X ~ Y)
+  r2 <- cor(e1, e2)   ## pcor(R, X | Y)
+  z2 <- 0.5 * sqrt(dof) * log( (1 + r2) / (1 - r2) ) 
+  p2 <- 2 * pt( abs(z2), dof, lower.tail = FALSE )
+ 
+  which( (p1 > alpha  &  p2 > alpha) | ( is.na(p1)  &  is.na(p2) )  )
+}
+
+
+
+##############
+##############
+##############
+check.equiv <- function( y, x, sela, cand, eq, alpha) {
+  le <- length(eq)
+  res <- numeric(le)
+  d01 <- lm(y~., data = as.data.frame( x[, c(sela, cand)] ) )
+  for (i in 1:le) {
+    dfull <- lm(y~., data = as.data.frame( x[, c(sela, cand, eq[i])] ) )
+    d02 <- lm(y~., data = as.data.frame( x[, c(sela, eq[i])] ) ) 
+	p1 <- anova(d01, dfull)[2, 6] 
+    p2 <- anova(d02, dfull)[2, 6]
+    res[i] <- ( p1 > alpha & p2 > alpha )
+  }
+  res[ is.na(res) ] <- 1
+  res
+}
+
+
+
+
+
+
+
+
+

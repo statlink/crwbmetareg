@@ -1,0 +1,70 @@
+\name{epilogi}
+\alias{epilogi}
+
+\title{
+The epilogi Variable Selection Algorithm for Continuous Data.
+}
+
+\description{
+The \eqn{\epsilon}pilogi Variable Selection Algorithm for Continuous Data.
+}
+
+\usage{
+epilogi(y, x, tol = 0.01, alpha = 0.05)
+}
+
+\arguments{
+\item{y}{
+A vector with the continuous response variable.
+}
+\item{x}{
+A matrix with the continuous predictor variables.
+}
+\item{tol}{
+The tolerance value for the algortihm to terminate. This takes values greater than 0 and it refers to the change between two successive \eqn{R^2}-adjusted values.
+}
+\item{alpha}{
+The significance level to deem a predictor variable is statistically equivalent to a selected variable.
+}
+}
+
+\details{
+The \eqn{\epsilon}pilogi variable selection algorithm (Lakiotaki et al., 2023) is a generalisation of the \eqn{\gamma}-OMP algorithm (Tsagris et al. 2022). It applies the aforementioned algorithm with the addition that it returns possible statistically equivalent predictor(s) for each selected predictor. Once a variable is selected the algorithm searches for possible equivalent predictors using the partial correlation between the residuals.
+
+The heuristic method to consider two predictors R and C informationally equivalent given the current selected predictor S is determined as follows: first, the residuals r of the model using S are computed. Then, if the following two conditions hold R and C are considered equivalent: Ind(R; r | C) and Ind(r ; C | R), where Ind(R; r | C) denotes the conditional independence of R with r given C. When linearity is assumed, the test can be implemented by testing for significance the corresponding partial correlation. The tests Ind return a p-value and independence is accepted when it is larger than a threshold (significance value, argument alpha). Intuitively, R and C are heuristically considered equivalent, if C is known, then R provides no additional information for the residuals r, and if R is known, then C provides no additional information for r.
+}
+
+\value{
+A list including:
+\item{runtime}{The runtime of the algorithm.
+}
+\item{result}{
+A matrix with two columns. The selected predictor(s) and the adjusted \eqn{R^2}-values.
+}
+\item{equiv}{
+A list with the equivalent predictors (if any) corresponding to each selected predictor.
+}
+}
+
+\references{
+Lakiotaki K., Papadovasilakis Z., Lagani V., Fafalios S., Charonyktakis P., Tsagris M. and Tsamardinos I. (2023). Automated machine learning for Genome Wide Association Studies. \textit{Bioinformatics}.
+
+Tsagris M., Papadovasilakis Z., Lakiotaki K. and Tsamardinos I. (2022). The \eqn{\gamma}-OMP algorithm for feature selection with application to gene expression data. \textit{IEEE/ACM Transactions on Computational Biology and Bioinformatics}, 19(2): 1214--1224.
+}
+
+\author{
+Michail Tsagris.
+
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+}
+
+\seealso{
+\code{ \link{pcor.equiv}
+}
+}
+
+\examples{
+binomCI(45, 100)
+}
+
+

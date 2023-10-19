@@ -1,0 +1,19 @@
+require(HMMpa)
+optim
+library(gp)
+require(HMMpa)
+require(HMMpa)
+library(gp)
+require(HMMpa)
+n <- 1000
+x <- matrix (rnorm(n * 3), nrow = n, ncol = 3) * 0.5
+be <- c(1, 1, 1)
+mi <- exp( x %*% be + 1 )
+y <- numeric(n)
+for (i in 1:n)  y[i] <- rgenpois(1, mi[i], 0.5)
+gp.reg(y, x)
+gp.reg2(y, x)
+library(gp)
+library(HMMpa)
+sessioninfo::package_info("gp")
+devtools::build_manual("~/R/win-library/4.0/gp", path = "C:/Users/Michail/Desktop/")

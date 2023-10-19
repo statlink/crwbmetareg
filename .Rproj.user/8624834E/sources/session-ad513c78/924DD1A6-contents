@@ -1,0 +1,13 @@
+Package: epilogi
+Type: Package
+Title: The epilogi Variable Selection Algorithm for Continuous Data
+Version: 1.0
+Date: 2023-08-20
+Authors@R: person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr")
+Author: Michail Tsagris [aut, cre]
+Maintainer: Michail Tsagris <mtsagris@uoc.gr>
+Depends: R (>= 4.3.0)
+Imports: Rfast, stats
+Description: The epliogi variable selection algorithm is implemented for the case of continous response and predictor variables. The reelvant paper is: Lakiotaki K., Papadovasilakis Z., Lagani V., Fafalios S., Charonyktakis P., Tsagris M. and Tsamardinos I. (2023). "Automated machine learning for Genome Wide Association Studies". Bioinformatics. <doi:10.1002/sim.4780120902>. 
+License: GPL (>= 2)
+

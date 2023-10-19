@@ -1,0 +1,89 @@
+\name{binomCI}
+\alias{binomCI}
+
+\title{
+Confidence Intervals for a Binomial Proportion.
+}
+
+\description{
+Confidence Intervals for a Binomial Proportion.
+}
+
+\usage{
+binomCI(x, n, a = 0.05)
+}
+
+\arguments{
+\item{x}{
+The number of successes.
+}
+\item{The number of trials.
+}
+\item{The significance level to compute the \eqn{(1-\alpha)\%} confidence intervals.
+}
+}
+
+\details{
+The confidence intervals are:
+Jeffreys:
+\deqn{
+\left[ F(\alpha/2; x+0.5, n-x+0.5), F(1-\alpha/2; x+0.5, n-x+0.5) \right],
+}
+where \eqn{F(\alpha, a, b)} denotes the \eqn{\alpha} quantile of the Beta distribution with parameters \eqn{a} and \eqn{b}, \eqn{Be(a, b)}.
+Wald:
+\deqn{
+\left[ \hat{p} - Z_{1-\alpha/2} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}, \hat{p} - Z_{1-\alpha/2} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \right],
+}
+where \eqn{\hat{p}=\frac{x}{n}} and \eqn{Z_{1-\alpha/2}} denotes the \eqn{1-\alpha/2} quantile of the standard normal distribution. If \eqn{\hat{p}=0} the interval becomes \eqn{(0 , 1 - e^{\frac{1}{n}\log({\alpha}{2})})} and if \eqn{\hat{p}=1} the interval becomes \eqn{(e^{\frac{1}{n}\log({\alpha}{2})}, 1)}.
+Wald corrected:
+\deqn{
+\left[ \hat{p} - Z_{1-\alpha/2} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} - \frac{0.5}{n}, \hat{p} - Z_{1-\alpha/2} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} + \frac{0.5}{n} \right],
+}
+and if \eqn{\eqn{\hat{p}=0}} or \eqn{\eqn{\hat{p}=1}} the previous (Wald) adjustment applies.
+Wald BS:
+\deqn{
+\left[ \hat{p} - Z_{1-\alpha/2} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n-Z_{1-\alpha/2}-2Z_{1-\alpha/2}/n-1/n}} - \frac{0.5}{n}, \hat{p} - Z_{1-\alpha/2} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n-Z_{1-\alpha/2}-2Z_{1-\alpha/2}/n-1/n}} + \frac{0.5}{n} \right],
+}
+and if \eqn{\eqn{\hat{p}=0}} or \eqn{\eqn{\hat{p}=1}} the previous (Wald) adjustment applies.
+Agresti and Coull:
+\deqn{
+\left[ \hat{\theta} - Z_{1-\alpha/2} \times \sqrt{\frac{\hat{\theta}(1-\hat{\theta})}{n+4}}, \hat{p} - Z_{1-\alpha/2} \times \sqrt{\frac{\hat{\theta}(1-\hat{\theta})}{n+4}} \right],
+}
+where \eqn{\hat{\theta}=\frac{x+2}{n+4}}.
+Wilson:
+\deqn{
+\left[ \frac{x_b}{n_b} - \frac{Z_{1-\alpha/2}\sqrt{n}}{n_b} \times \sqrt{\hat{p}(1-\hat{p})+Z_{1-\alpha/2}/4}, \frac{x_b}{n_b} + \frac{Z_{1-\alpha/2}\sqrt{n}}{n_b} \times \sqrt{\hat{p}(1-\hat{p})+Z_{1-\alpha/2}/4} \right],
+}
+where \eqn{x_b=x+Z_{1-\alpha/2}^2/2} and \eqn{n_b=n+Z_{1-\alpha/2}^2}.
+Score:
+\deqn{
+\left[ \frac{x+Z_{1-\alpha/2}^2-c}{n+Z_{1-\alpha/2}^2} , \frac{x+Z_{1-\alpha/2}^2+c}{n+Z_{1-\alpha/2}^2} \right],
+}
+where \eqn{c=Z_{1-\alpha/2}\sqrt{x-x^2/n+Z_{1-\alpha/2}^2/4}}.
+}
+
+\value{
+A list including:
+\item{prop}{The proportion.
+}
+\item{ci}{
+A matrix with 12 rows containing the 12 different \eqn{(1-\alpha)\%} confidence intervals.
+}
+}
+
+\author{
+Michail Tsagris.
+
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+}
+
+\seealso{
+\code{ \link{binomCIs}
+}
+}
+
+\examples{
+binomCI(45, 100)
+}
+
+

@@ -1,0 +1,9 @@
+#useDynLib(fsn, .registration = TRUE)
+
+importFrom("Rfast", , Var, Outer, standardise, colsums,
+           eachcol.apply, corpairs)
+importFrom("stats", cov, pt, cor, .lm.fit, lm, anova)
+
+exportPattern("^[[:alpha:]]+")
+exportPattern("^[^\\.]")
+

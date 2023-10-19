@@ -1,0 +1,13 @@
+#useDynLib(fsn, .registration = TRUE)
+
+importFrom("Rfast2", wlsmeta, colwlsmeta)
+importFrom("stats", glm, predict, rbinom, coefficients, residuals,
+           as.formula, update, model.matrix, quantile)
+importFrom("sandwich", sandwich, estfun)
+importFrom("utils", txtProgressBar, setTxtProgressBar, write.table)
+importFrom("lmtest", coeftest)
+
+exportPattern("^[[:alpha:]]+")
+exportPattern("^[^\\.]")
+
+export(wlsmeta, colwlsmeta, fatpet, crwbmetareg)

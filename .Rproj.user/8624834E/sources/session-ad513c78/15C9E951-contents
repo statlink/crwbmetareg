@@ -1,0 +1,7 @@
+#useDynLib(fsn, .registration = TRUE)
+
+importFrom("stats", qbeta, qnorm, qf)
+
+exportPattern("^[[:alpha:]]+")
+exportPattern("^[^\\.]")
+

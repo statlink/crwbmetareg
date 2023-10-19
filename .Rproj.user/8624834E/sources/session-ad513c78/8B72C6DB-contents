@@ -1,0 +1,58 @@
+\name{check.equiv}
+\alias{check.equiv}
+
+\title{
+Check whether the equivalent predictors yield equivalent models
+}
+
+\description{
+Check whether the equivalent predictors yield equivalent models.
+}
+
+\usage{
+check.equiv(y, x, sela, cand, equiv, alpha)
+}
+
+\arguments{
+\item{y}{
+A vector with the response variable.
+}
+\item{x}{
+A matrix with all predictor variables.
+}
+\item{sela}{
+The indices of the selected predictor variables.
+}
+\item{cand}{
+}
+\item{equiv}{
+}
+\item{alpha}{
+The significance level to check the equivalence of the models.
+}
+}
+
+\details{
+
+}
+
+\value{
+A vector with 0s and 1s. 0s indicate that the predictors are not equivalent, while 1s indicate the equivalent predictors.
+}
+
+\author{
+Michail Tsagris.
+
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+}
+
+\seealso{
+\code{ \link{pcor.equiv}
+}
+}
+
+\examples{
+binomCI(45, 100)
+}
+
+
